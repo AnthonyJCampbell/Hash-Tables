@@ -53,6 +53,9 @@ class HashTable:
         Fill this in.
         '''
         # Get the hashed key
+        index = self._hash_mod(key)
+
+        newItem = LinkedPair(index, value)
 
         # Check if we've reached capacity
             # If so, resize first
