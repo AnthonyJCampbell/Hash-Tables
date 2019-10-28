@@ -92,14 +92,24 @@ class HashTable:
         # We need to take care of a couple of different cases.
 
         # If passed in a key with no value present, return none
+        if current_item is None:
+            return None
         
         # If the desired key is the first in our LinkedPairs
+        if current_item.key == key:
+            # If there is a next, we need to change current to current.next
+            if current_item.next:
+                self.storage[index] = current_item.next
             # If there's no `next`, we're free to delete it
+            else:
+                self.storage[index] = None
 
-            # If there is, we need to change current to current.next
+            # We'll return the value
+            return current_item.value
 
         # If there's a .next and .next.key is not our key, we need to move to current.next
-
+        while current_item.next and current_item.next.key != key:
+            current_item = current_item.next
 
         old_val = current_item.next
         current_item.next = old_val.next
