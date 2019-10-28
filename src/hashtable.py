@@ -57,15 +57,14 @@ class HashTable:
 
         # Check if we've reached capacity
         # If there's already a value at the calculated index, we should resize
-        while self.storage[index] is not None:
+        if self.storage[index] is not None:
             # If so, resize first
-            self.resize()
-
+            print("Collision detected!")
+            return
         
-        # Now that our hashtable has been extended, we can:
         # Store the real key and value in the LinkedPair and insert it at the given index
         self.storage[index] = LinkedPair(key, value)
-        
+
 
     def remove(self, key):
         '''
@@ -75,7 +74,11 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        index = self._hash_mod(key)
+        if self.storage[index] is None:
+            print("There's nothing here.")
+            return
+        self.storage[index] = None
 
 
     def retrieve(self, key):
@@ -88,15 +91,14 @@ class HashTable:
         '''
         # retrieve _hash_mod of key
         index = self._hash_mod(key)
+        # Set item to be the Object at the index
+        item = self.storage[index]
 
-        # Check if self.storage[_hash_mod] has a value
-        if self.storage[index] is not None:
-            return self.storage[index].value 
-
-        # Else, return None
-        else:
+        # If nothing's there, return None
+        if item is None:
             return None
-
+        else:
+            return item.value
 
 
     def resize(self):
@@ -118,7 +120,7 @@ class HashTable:
             #     print(item.value)
             # If nothing's at the given index, we don't have to do anything
             if item is None:
-                pass
+                continue
             else:
                 # Rehash the key
                 new_hash = self._hash_mod(item.key)
@@ -127,9 +129,6 @@ class HashTable:
 
         self.storage = new_storage
         # print(f"After resizing, our storage looks like: {self.storage}")
-
-ht = HashTable(5)
-ht.retrieve(17)
 
 if __name__ == "__main__":
     ht = HashTable(2)
