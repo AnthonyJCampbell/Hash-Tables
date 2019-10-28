@@ -128,11 +128,17 @@ class HashTable:
         current_item = self.storage[index]
 
         # If current_item is None, there's no value at the key and we should return None
+        if current_item is None:
+            return None
 
-        # Move through all `.next` of current_item
+        # Move through all `.next` of current_item until we find the designated key
+        while current_item.key is not key:
             # If current_item.next is None, we haven't found it
-
+            if current_item.next is None:
+                return None
             # else current_item is item.next
+            else:
+                current_item = current_item.next
 
         return current_item.value
 
