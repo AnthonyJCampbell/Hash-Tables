@@ -67,6 +67,8 @@ class HashTable:
             current_item = self.storage[index]
             # Loop over the .next of the item in place until you reach the end
             while current_item.next is not None:
+                if current_item.key == key:
+                    break
                 # Move over to the right and reloop
                 current_item = current_item.next
 
