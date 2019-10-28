@@ -89,11 +89,21 @@ class HashTable:
         # Store item that's currently at the index.
         current_item = self.storage[index]
 
+        # We need to take care of a couple of different cases.
 
-        if self.storage[index] is None:
-            print("There's nothing here.")
-            return
-        self.storage[index] = None
+        # If passed in a key with no value present, return none
+        
+        # If the desired key is the first in our LinkedPairs
+            # If there's no `next`, we're free to delete it
+
+            # If there is, we need to change current to current.next
+
+        # If there's a .next and .next.key is not our key, we need to move to current.next
+
+
+        old_val = current_item.next
+        current_item.next = old_val.next
+        return old_val.value
 
 
     def retrieve(self, key):
