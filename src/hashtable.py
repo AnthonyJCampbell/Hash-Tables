@@ -55,15 +55,25 @@ class HashTable:
         # Get the hashed key for storage
         index = self._hash_mod(key)
 
-        # Check if we've reached capacity
-        # If there's already a value at the calculated index, we should resize
-        if self.storage[index] is not None:
-            # If so, resize first
+        # If there's nothing at the intended index, we're good to go!
+        if self.storage[index] is None:
+            # Store the real key and value in the LinkedPair and insert it at the given index
+            self.storage[index] = LinkedPair(key, value)
+
+        # If something's there
+        else:
             print("Collision detected!")
-            return
-        
-        # Store the real key and value in the LinkedPair and insert it at the given index
-        self.storage[index] = LinkedPair(key, value)
+            # Store item that's currently at the index
+            current_item = self.storage[index]
+            # Loop over the .next of the item in place until you reach the end
+            while item.next is not None:
+                # Move over to the right and reloop
+                current_item = item.next
+
+            if current_item.key == key:
+                current_item.value = value
+            else:
+                current_item.next = LinkedPair(key, value)
 
 
     def remove(self, key):
@@ -75,6 +85,11 @@ class HashTable:
         Fill this in.
         '''
         index = self._hash_mod(key)
+
+        # Store item that's currently at the index.
+        current_item = self.storage[index]
+
+
         if self.storage[index] is None:
             print("There's nothing here.")
             return
