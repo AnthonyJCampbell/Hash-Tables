@@ -66,9 +66,9 @@ class HashTable:
             # Store item that's currently at the index
             current_item = self.storage[index]
             # Loop over the .next of the item in place until you reach the end
-            while item.next is not None:
+            while current_item.next is not None:
                 # Move over to the right and reloop
-                current_item = item.next
+                current_item = current_item.next
 
             if current_item.key == key:
                 current_item.value = value
@@ -88,8 +88,6 @@ class HashTable:
 
         # Store item that's currently at the index.
         current_item = self.storage[index]
-
-        # We need to take care of a couple of different cases.
 
         # If passed in a key with no value present, return none
         if current_item is None:
@@ -127,13 +125,28 @@ class HashTable:
         # retrieve _hash_mod of key
         index = self._hash_mod(key)
         # Set item to be the Object at the index
-        item = self.storage[index]
+        current_item = self.storage[index]
 
-        # If nothing's there, return None
-        if item is None:
-            return None
-        else:
-            return item.value
+        # If current_item is None, there's no value at the key and we should return None
+
+        # Move through all `.next` of current_item
+            # If current_item.next is None, we haven't found it
+
+            # else current_item is item.next
+
+        return current_item.value
+
+
+
+
+
+
+
+        # # If nothing's there, return None
+        # if item is None:
+        #     return None
+        # else:
+        #     return item.value
 
 
     def resize(self):
