@@ -23,6 +23,7 @@ class HashTable:
 
         You may replace the Python hash with DJB2 as a stretch goal.
         '''
+
         return hash(key)
 
 
@@ -85,8 +86,6 @@ class HashTable:
         Fill this in.
         '''
         pass
-
-
 
 if __name__ == "__main__":
     ht = HashTable(2)
