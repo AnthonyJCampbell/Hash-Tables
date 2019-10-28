@@ -143,18 +143,6 @@ class HashTable:
         return current_item.value
 
 
-
-
-
-
-
-        # # If nothing's there, return None
-        # if item is None:
-        #     return None
-        # else:
-        #     return item.value
-
-
     def resize(self):
         '''
         Doubles the capacity of the hash table and
@@ -162,26 +150,30 @@ class HashTable:
 
         Fill this in.
         '''
+        # Store old capacity and storage for future use:
+        cap = self.capacity
+        store = self.storage
+
         # set self.capacity to *= 2
         self.capacity *= 2
-        
         # Declare storage with double the capacity
-        new_storage = [None] * self.capacity
+        self.storage = [None] * self.capacity
 
+        for i in range(cap):
+            current_item = store[i]
 
-        for item in self.storage:
-            # if item is not None:
-            #     print(item.value)
             # If nothing's at the given index, we don't have to do anything
-            if item is None:
+            if current_item is None:
                 continue
-            else:
-                # Rehash the key
-                new_hash = self._hash_mod(item.key)
-                # Place the LinkedPair at the correct index
-                new_storage[new_hash] = item
 
-        self.storage = new_storage
+            # If there are items on `.next`, we'll need to iterate through them and add them one by one.
+            while current_item.next:
+                self.insert(current_item.key, current_item.value)
+                current_item = current_item.next
+
+            # When there's no next or we've reached the end of the linked list, we can go ahead and insert the final one.
+            self.insert(current_item.key, current_item.value)
+
         # print(f"After resizing, our storage looks like: {self.storage}")
 
 if __name__ == "__main__":
